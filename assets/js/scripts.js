@@ -37,7 +37,12 @@ function funcaoHipotenusa() {
 
 
     if (catetoB && hipotenusa) {
-        createAlert("calcular catetoA!");
+        const quadradoCateto = catetoB * catetoB;
+        const quadradoHipotenusa = hipotenusa * hipotenusa;
+        const auxiliar = quadradoHipotenusa - quadradoCateto;
+        const resultado = Math.sqrt(auxiliar);
+
+        document.getElementById("catetoA").value = resultado;
     } 
 }
 
