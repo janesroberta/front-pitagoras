@@ -6,7 +6,7 @@
 
 body {
     font-family: "Acme" sans-serif;
-    font-size: 25px;
+    font-size: 20px;
     color: #0c0b0c;
     background-color: #eff7f5;
 }
@@ -35,12 +35,13 @@ hipotenusa {
     }
 
     hipotenusa h1 {
-        text-align: center;
+        text-align
+        : center;
         font-size: 2em;
         text-decoration: underline;
     }
 
-    form {
+    .form {
         display: flex;
         justify-content: center;
         align-items: center;
