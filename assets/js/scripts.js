@@ -1,49 +1,32 @@
 const form = document.getElementById("meu_formulario");
 
-//primeiro passo: calcular cateto ao quadrado
-//segundo passo: calcular hipotenusa ao quadrado
-//terceiro passo: calcular hipotenusa - cateto
-//fazer a rtaiz quadrada do resultado anterior
-
 function funcaoHipotenusa() {
     const catetoA = document.getElementById("catetoA").value;
     const catetoB = document.getElementById("catetoB").value;
     const hipotenusa = document.getElementById("hipotenusa").value;
 
-    if (!catetoA && !hipotenusa) {
-        createAlert("Insira mais um valor!");
-        return;
-    } else if (!catetoA && !catetoB) {
-        createAlert("Insira mais um valor!");
-        return;
-    } else if (!catetoB && !hipotenusa) {
-        createAlert("Insira mais um valor!");
-        return;
-    }
+    axios.post(
+        'http://localhost:3000/',
+        {
+            "hipotenusa": hipotenusa,
+            "catetoA": catetoA,
+            "catetoB": catetoB
+        }
+    ).then((res) => {
+        console.log(res);
 
-    if (catetoA && catetoB) {
-        document.getElementById("hipotenusa").value = Math.hypot(catetoA,catetoB).toFixed(2);
-        return;
-    }
-    
-    if (catetoA && hipotenusa) { 
-        const quadradoCateto = catetoA * catetoA;
-        const quadradoHipotenusa = hipotenusa * hipotenusa;
-        const auxiliar = quadradoHipotenusa - quadradoCateto;
-        const resultado = Math.sqrt(auxiliar);
+        if (res.data.hipotenusa != undefined) {
+            alert(`o valor da hipotenusa e ${res.data.hipotenusa}`)
+        } else if (res.data.catetoA != undefined) {
+            alert(`o valor do catetoA e ${res.data.catetoA}`)
+        } else if (res.data.catetoB != undefined) {
+            alert(`o valor do catetoB e ${res.data.catetoB}`)
+        }
+    }).catch((err) => {
+        console.log(err.response.data.message);
+        createAlert(err.response.data.message);
+    })
 
-        document.getElementById("catetoB").value = resultado;
-    }
-
-
-    if (catetoB && hipotenusa) {
-        const quadradoCateto = catetoB * catetoB;
-        const quadradoHipotenusa = hipotenusa * hipotenusa;
-        const auxiliar = quadradoHipotenusa - quadradoCateto;
-        const resultado = Math.sqrt(auxiliar);
-
-        document.getElementById("catetoA").value = resultado;
-    } 
 }
 
 function createAlert(message) {
